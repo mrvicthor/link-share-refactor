@@ -21,10 +21,41 @@ export const PlatformEnum = z.enum(platforms);
 
 export type Platform = z.infer<typeof PlatformEnum>;
 
-const linkSchema = z.object({
-  platform: PlatformEnum,
-  url: z.url("Must be a valid URL"),
-});
+export const PLATFORM_HOSTNAMES: Record<(typeof platforms)[number], RegExp> = {
+  GITHUB: /^(www\.)?github\.com$/,
+  FRONTENDMENTOR: /^(www\.)?frontendmentor\.io$/,
+  TWITTER: /^(www\.)?(twitter\.com|x\.com)$/,
+  LINKEDIN: /^(www\.)?linkedin\.com$/,
+  YOUTUBE: /^(www\.)?(youtube\.com|youtu\.be)$/,
+  FACEBOOK: /^(www\.)?facebook\.com$/,
+  TWITCH: /^(www\.)?twitch\.tv$/,
+  DEVTO: /^(www\.)?dev\.to$/,
+  CODEWARS: /^(www\.)?codewars\.com$/,
+  FREECODECAMP: /^(www\.)?freecodecamp\.org$/,
+  GITLAB: /^(www\.)?gitlab\.com$/,
+  HASHNODE: /^([\w-]+\.)?hashnode\.(dev|com)$/,
+  STACKOVERFLOW: /^(www\.)?stackoverflow\.com$/,
+};
+
+const linkSchema = z
+  .object({
+    platform: PlatformEnum,
+    url: z.url("Must be a valid URL"),
+  })
+  .refine(
+    ({ platform, url }) => {
+      try {
+        const hostname = new URL(url).hostname;
+        return PLATFORM_HOSTNAMES[platform].test(hostname);
+      } catch {
+        return false;
+      }
+    },
+    {
+      message: "URL must be a valid platform link",
+      path: ["url"],
+    },
+  );
 
 export type CreateLinkFormData = z.infer<typeof linkSchema>;
 
