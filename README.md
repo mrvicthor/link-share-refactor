@@ -1,78 +1,123 @@
-# React + TypeScript + Vite
+# Frontend Mentor - Link-sharing app solution
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a solution to the [Link-sharing app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/linksharing-app-Fbt7yweGsT). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
-Currently, two official plugins are available:
+## Table of contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-## React Compiler
+## Overview
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### The challenge
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+Users should be able to:
 
-## Expanding the ESLint configuration
+- Create, read, update, delete links and see previews in the mobile mockup
+- Receive validations if the links form is submitted without a URL or with the wrong URL pattern for the platform
+- Drag and drop links to reorder them
+- Add profile details like profile picture, first name, last name, and email
+- Receive validations if the profile details form is saved with no first or last name
+- Preview their devlinks profile and copy the link to their clipboard
+- View the optimal layout for the interface depending on their device's screen size
+- See hover and focus states for all interactive elements on the page
+- **Bonus**: Save details to a database (build the project as a full-stack app)
+- **Bonus**: Create an account and log in (add user authentication to the full-stack app)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Screenshot
+
+![](./screenshot.png)
+
+### Links
+
+- Solution URL: [https://github.com/mrvicthor/link-share-refactor]
+- Live Site URL: [https://link-share-refactor.vercel.app/]
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- [React](https://reactjs.org/) - JS library
+- [TailwindCSS](https://tailwindcss.com/) - CSS framework
+
+### What I learned
+
+My focus today was on using useReducer to manage state. Using reducer makes it easy to debug because you can identify the point the bug exists easily.
 
 ```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+import React, { createContext, useEffect, useState } from "react";
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+type NotificationContextType = {
+  notification: boolean,
+  setNotification: (value: boolean) => void,
+};
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+export const NotificationContext =
+  (createContext < NotificationContextType) | (undefined > undefined);
 
+export const NotificationProvider = ({
+  children,
+}: {
+  children: React.ReactNode,
+}) => {
+  const [notification, setNotification] = useState < boolean > false;
+
+  useEffect(() => {
+    navigator.clipboard.writeText(window.location.href);
+    const interval = setTimeout(() => setNotification(false), 3000);
+    return () => clearTimeout(interval);
+  }, [notification]);
+
+  return (
+    <NotificationContext.Provider value={{ notification, setNotification }}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};
+
+import { useContext } from "react";
+import { NotificationContext } from "@/context/NotificationContext";
+
+export const useNotification = () => {
+  const context = useContext(NotificationContext);
+  if (!context) {
+    throw new Error(
+      "useNotification must be used within a NotificationProvider"
+    );
+  }
+  return context;
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### Continued development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+I plan to explore the NextJs 15, build a full stack application with it.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Useful resources
 
-```
+- [https://react.dev/reference/react/createContext] - This helped me to avoid prop drilling and to create a custom context.
+- [https://tanstack.com/query/v4/docs/framework/react/reference/useQuery] - This is an amazing library which helped me fetch and cache data from the backend with ease.
+
+## Author
+
+- Website - [https://www.victoreleanya.com]
+- Frontend Mentor - [https://www.frontendmentor.io/profile/mrvicthor]
+- Twitter - [https://x.com/eva_skillz]
+
+## Acknowledgments
+
+I will like to acknowledge github.com/nikitapryymak. His YouTube tutorial helped me understand authorization and authentication. I will also like to thank Jude for his patience with explaining some programming concepts.
