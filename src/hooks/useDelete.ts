@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { useUserContext } from "./useUser";
 
-export const useDeleteLink = (linkId: number) => {
+export const useDeleteLink = (linkId: string) => {
   const { dispatch } = useUserContext();
   const deleteOne = () => {
     dispatch({ type: "delete_link", id: linkId });

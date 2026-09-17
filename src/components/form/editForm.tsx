@@ -21,7 +21,7 @@ import { useUpdateLink } from "@/hooks/useUpdateLink";
 import { useDeleteLink } from "@/hooks/useDelete";
 
 type EditProps = {
-  id: number;
+  id: string;
   url: string;
   platform: IPlatform;
   displayOrder: number;

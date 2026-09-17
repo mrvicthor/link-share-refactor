@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useUserContext } from "./useUser";
 
 export const useUpdateLink = (
-  id: number,
+  id: string,
   platform: Platform,
   url: string,
   displayOrder: number,

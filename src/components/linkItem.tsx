@@ -13,7 +13,7 @@ import { getMatchingColor } from "../helpers/getMatchingColor";
 import { PLATFORM_OPTIONS, type Platform } from "../domain/platform";
 
 type Props = {
-  id: number;
+  id: string;
   platform: Platform;
   url: string;
   displayOrder: number;

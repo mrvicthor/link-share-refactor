@@ -35,7 +35,7 @@ export const createLinkSchema = z.object({
 export type CreateLinkDTO = z.infer<typeof createLinkSchema>;
 
 export const updateLinkSchema = z.object({
-  id: z.number().int(),
+  id: z.string(),
   ...linkSchema.shape,
   displayOrder: z.number(),
 });

@@ -16,7 +16,7 @@ export const createUserSchema = z.object({
 export type CreateUserDTO = z.infer<typeof createUserSchema>;
 
 export type Link = {
-  id: number;
+  id: string;
   platform: Platform;
   url: string;
   displayOrder: number;
@@ -40,7 +40,7 @@ export type ActionType =
       profilePicture: string;
     }
   | { type: "add_link"; link: Link[] }
-  | { type: "delete_link"; id: number }
+  | { type: "delete_link"; id: string }
   | { type: "update_link"; link: Pick<Link, "platform" | "url" | "id"> }
   | { type: "reorder_link"; link: Link };
 
