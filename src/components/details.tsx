@@ -52,7 +52,7 @@ const Details = ({ user }: DetailsProps) => {
             </motion.ul>
           ) : null}
           {user.profilePicture ? (
-            <div className="absolute h-20 w-20 overflow-hidden top-14 rounded-full left-[50%] -translate-x-[50%] border-2 border-purple-500">
+            <div className="absolute h-20 w-20 overflow-hidden top-14 rounded-full left-[50%] translate-x-[-50%] border-2 border-purple-500">
               <img
                 src={`${user.profilePicture}`}
                 alt="profile"
@@ -73,7 +73,7 @@ const Details = ({ user }: DetailsProps) => {
             <div className="absolute bg-[#d9d9d9] h-3 w-31.25 opacity-50 top-48 rounded-full left-[50%] translate-x-[-50%]" />
           )}
           {user.email ? (
-            <p className="absolute top-[11.2rem] rounded-full left-[50%] translate-x-[-50%] text-sm text-[#737373] opacity-50">
+            <p className="absolute top-[11.2rem] rounded-full left-[50%] translate-x-[-50%] text-sm text-[#737373]">
               {user.email}
             </p>
           ) : (

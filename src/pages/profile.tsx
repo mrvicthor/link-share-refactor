@@ -9,11 +9,7 @@ const Profile = () => {
     <section className="mx-auto max-w-7xl md:px-6 grid welcome-screen gap-6">
       <section className="bg-white rounded-md hidden lg:block">
         {!user ? (
-          <img
-            src={phoneLogo}
-            alt="phone image"
-            className="w-76.75 h-120 mt-24"
-          />
+          <img src={phoneLogo} alt="" className="w-76.75 h-120 mt-24" />
         ) : (
           <Details user={user} />
         )}

@@ -14,7 +14,7 @@ const Notification = ({ message }: NotificationProps) => {
       <div
         className={`bg-[#333333] rounded-md p-4 text-white m-auto flex gap-2`}
       >
-        <img src={LinkIcon} alt="link-copied-icon" />
+        <img src={LinkIcon} alt="" />
         <p>{message}</p>
       </div>
     </div>

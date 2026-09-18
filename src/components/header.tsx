@@ -56,6 +56,7 @@ const Header = () => {
         <div className="flex">
           <NavLink
             to={`/preview/${user?.id}`}
+            aria-label="Preview"
             className={({ isActive }) =>
               isActive
                 ? "bg-[#EFEBFF] text-[#633CFF] flex md:hidden rounded-md px-4 py-2"

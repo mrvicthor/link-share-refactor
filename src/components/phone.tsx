@@ -30,10 +30,10 @@ const Phone = () => {
           </svg>
           <LinksList />
           {user && user.profilePicture ? (
-            <div className="absolute h-20 w-20 overflow-hidden top-14 rounded-full left-[50%] -translate-x-[50%] border-2 border-purple-500">
+            <div className="absolute h-20 w-20 overflow-hidden top-14 rounded-full left-[50%] translate-x-[-50%] border-2 border-purple-500">
               <img
                 src={`${user.profilePicture}`}
-                alt={`${user.firstName}-image`}
+                alt={`${user.firstName}`}
                 width="500"
                 height="500"
                 loading="lazy"
@@ -51,7 +51,7 @@ const Phone = () => {
             <div className="absolute bg-[#d9d9d9] h-3 w-31.25 opacity-50 top-40 rounded-full left-[50%] translate-x-[-50%]" />
           )}
           {user ? (
-            <p className="absolute top-46 rounded-full left-[50%] translate-x-[-50%] text-sm text-[#737373] opacity-50">
+            <p className="absolute top-46 rounded-full left-[50%] translate-x-[-50%] text-sm text-[#737373]">
               {user.email}
             </p>
           ) : (
@@ -59,11 +59,7 @@ const Phone = () => {
           )}
         </div>
       ) : (
-        <img
-          src={phoneLogo}
-          alt="phone image"
-          className="w-76.75 h-120 mt-24"
-        />
+        <img src={phoneLogo} alt="" className="w-76.75 h-120 mt-24" />
       )}
     </div>
   );

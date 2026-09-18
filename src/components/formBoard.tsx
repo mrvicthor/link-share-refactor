@@ -56,13 +56,13 @@ const FormBoard = () => {
                       Link #{index + 1}
                     </span>
                   </div>
-                  <span
+                  <button
                     role="button"
                     className="block hover:cursor-pointer text-[#737373] opacity-50"
                     onClick={() => remove(index)}
                   >
                     Remove
-                  </span>
+                  </button>
                 </div>
 
                 <Controller
